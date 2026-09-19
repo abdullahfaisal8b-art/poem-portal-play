@@ -14,16 +14,148 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      events: {
+        Row: {
+          created_at: string
+          description: string
+          event_date: string
+          event_time: string
+          id: string
+          location: string
+          published: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          event_date: string
+          event_time?: string
+          id?: string
+          location?: string
+          published?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          event_date?: string
+          event_time?: string
+          id?: string
+          location?: string
+          published?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      news: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          published: boolean
+          published_at: string
+          summary: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          id?: string
+          published?: boolean
+          published_at?: string
+          summary?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          published?: boolean
+          published_at?: string
+          summary?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      spotlights: {
+        Row: {
+          bio: string
+          created_at: string
+          featured_at: string
+          headline: string
+          id: string
+          poem: string
+          poem_title: string
+          published: boolean
+          updated_at: string
+          writer_name: string
+        }
+        Insert: {
+          bio?: string
+          created_at?: string
+          featured_at?: string
+          headline?: string
+          id?: string
+          poem?: string
+          poem_title?: string
+          published?: boolean
+          updated_at?: string
+          writer_name: string
+        }
+        Update: {
+          bio?: string
+          created_at?: string
+          featured_at?: string
+          headline?: string
+          id?: string
+          poem?: string
+          poem_title?: string
+          published?: boolean
+          updated_at?: string
+          writer_name?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      claim_admin: { Args: never; Returns: boolean }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +282,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
