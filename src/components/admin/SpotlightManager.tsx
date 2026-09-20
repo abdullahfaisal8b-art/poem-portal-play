@@ -47,7 +47,10 @@ export function SpotlightManager() {
       ? await supabase.from("spotlights").update(form).eq("id", editing.id)
       : await supabase.from("spotlights").insert(form);
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success(editing ? "Spotlight updated" : "Spotlight published");
     reset();
     qc.invalidateQueries({ queryKey: ["spotlights"] });
@@ -56,7 +59,10 @@ export function SpotlightManager() {
   async function remove(s: Spotlight) {
     if (!confirm(`Delete the spotlight on ${s.writer_name}?`)) return;
     const { error } = await supabase.from("spotlights").delete().eq("id", s.id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Deleted");
     qc.invalidateQueries({ queryKey: ["spotlights"] });
   }

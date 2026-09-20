@@ -47,7 +47,10 @@ export function EventsManager() {
       ? await supabase.from("events").update(form).eq("id", editing.id)
       : await supabase.from("events").insert(form);
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success(editing ? "Event updated" : "Event published");
     reset();
     qc.invalidateQueries({ queryKey: ["events"] });
@@ -56,7 +59,10 @@ export function EventsManager() {
   async function remove(ev: Event) {
     if (!confirm(`Delete "${ev.title}"?`)) return;
     const { error } = await supabase.from("events").delete().eq("id", ev.id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Deleted");
     qc.invalidateQueries({ queryKey: ["events"] });
   }

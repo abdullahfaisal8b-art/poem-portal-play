@@ -33,7 +33,10 @@ export function NewsManager() {
       ? await supabase.from("news").update(form).eq("id", editing.id)
       : await supabase.from("news").insert(form);
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success(editing ? "News updated" : "News published");
     reset();
     qc.invalidateQueries({ queryKey: ["news"] });
@@ -42,7 +45,10 @@ export function NewsManager() {
   async function remove(n: News) {
     if (!confirm(`Delete "${n.title}"?`)) return;
     const { error } = await supabase.from("news").delete().eq("id", n.id);
-    if (error) return toast.error(error.message);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
     toast.success("Deleted");
     qc.invalidateQueries({ queryKey: ["news"] });
   }
