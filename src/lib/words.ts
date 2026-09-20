@@ -45,5 +45,5 @@ export const WORDS: WordEntry[] = [
 
 export function pickWord(exclude?: string): WordEntry {
   const pool = WORDS.filter((w) => w.word !== exclude);
-  return pool[Math.floor(Math.random() * pool.length)];
+  return pool[Math.floor(Math.random() * pool.length)] ?? WORDS[0]!;
 }
