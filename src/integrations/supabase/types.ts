@@ -21,6 +21,7 @@ export type Database = {
           event_date: string
           event_time: string
           id: string
+          image_path: string | null
           location: string
           published: boolean
           title: string
@@ -32,6 +33,7 @@ export type Database = {
           event_date: string
           event_time?: string
           id?: string
+          image_path?: string | null
           location?: string
           published?: boolean
           title: string
@@ -43,6 +45,7 @@ export type Database = {
           event_date?: string
           event_time?: string
           id?: string
+          image_path?: string | null
           location?: string
           published?: boolean
           title?: string
@@ -55,6 +58,7 @@ export type Database = {
           body: string
           created_at: string
           id: string
+          image_path: string | null
           published: boolean
           published_at: string
           summary: string
@@ -65,6 +69,7 @@ export type Database = {
           body?: string
           created_at?: string
           id?: string
+          image_path?: string | null
           published?: boolean
           published_at?: string
           summary?: string
@@ -75,6 +80,7 @@ export type Database = {
           body?: string
           created_at?: string
           id?: string
+          image_path?: string | null
           published?: boolean
           published_at?: string
           summary?: string
@@ -90,6 +96,7 @@ export type Database = {
           featured_at: string
           headline: string
           id: string
+          image_path: string | null
           poem: string
           poem_title: string
           published: boolean
@@ -102,6 +109,7 @@ export type Database = {
           featured_at?: string
           headline?: string
           id?: string
+          image_path?: string | null
           poem?: string
           poem_title?: string
           published?: boolean
@@ -114,6 +122,7 @@ export type Database = {
           featured_at?: string
           headline?: string
           id?: string
+          image_path?: string | null
           poem?: string
           poem_title?: string
           published?: boolean
