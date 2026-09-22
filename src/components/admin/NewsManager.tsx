@@ -14,7 +14,13 @@ export function NewsManager() {
 
   function startEdit(n: News) {
     setEditing(n);
-    setForm({ title: n.title, summary: n.summary, body: n.body, published: n.published });
+    setForm({
+      title: n.title,
+      summary: n.summary,
+      body: n.body,
+      published: n.published,
+      image_path: n.image_path,
+    });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
