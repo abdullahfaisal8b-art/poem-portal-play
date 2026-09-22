@@ -19,7 +19,8 @@ export function Header() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
         <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
           <Feather className="size-5 text-rust" />
-          <span className="font-display text-2xl leading-none">{CLUB_NAME}</span>
+          <span className="hidden font-display text-2xl leading-none md:inline">The Liter Society</span>
+          <span className="font-display text-2xl leading-none md:hidden">The Literary Society</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
