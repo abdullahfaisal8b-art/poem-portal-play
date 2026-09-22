@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Spotlight } from "@/lib/queries";
 import { useAdminTable } from "./useAdminTable";
 import { formatDate } from "@/components/site/PageHeader";
-import { Checkbox, Field, FormShell, ItemRow, TextArea, TextInput } from "./fields";
+import { Checkbox, Field, FormShell, ItemRow, ImageField, TextArea, TextInput } from "./fields";
 
 const empty = {
   writer_name: "",
@@ -11,6 +11,7 @@ const empty = {
   poem_title: "",
   poem: "",
   published: true,
+  image_path: null as string | null,
 };
 
 export function SpotlightManager() {
@@ -28,6 +29,7 @@ export function SpotlightManager() {
       poem_title: s.poem_title,
       poem: s.poem,
       published: s.published,
+      image_path: s.image_path,
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -85,6 +87,7 @@ export function SpotlightManager() {
             style={{ minHeight: 200 }}
           />
         </Field>
+        <ImageField value={form.image_path} onChange={(v) => setForm({ ...form, image_path: v })} />
         <Checkbox
           label="Published (visible to everyone)"
           checked={form.published}

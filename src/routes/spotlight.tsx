@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { CLUB_NAME, spotlightsQuery } from "@/lib/queries";
+import { CLUB_NAME, imageUrl, spotlightsQuery } from "@/lib/queries";
 import { EmptyState, PageHeader, formatDate } from "@/components/site/PageHeader";
 
 export const Route = createFileRoute("/spotlight")({
@@ -43,6 +43,14 @@ function SpotlightPage() {
             style={{ animationDelay: `${i * 60}ms` }}
           >
             <div className="md:col-span-4">
+              {s.image_path && (
+                <img
+                  src={imageUrl(s.image_path)}
+                  alt={s.writer_name}
+                  loading="lazy"
+                  className="mb-5 aspect-[4/5] w-full border border-border object-cover"
+                />
+              )}
               <p className="eyebrow">{formatDate(s.featured_at)}</p>
               <h2 className="mt-3 text-4xl leading-tight">{s.writer_name}</h2>
               {s.headline && <p className="mt-2 text-lg text-rust italic">{s.headline}</p>}
