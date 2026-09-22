@@ -1,4 +1,75 @@
 import { Pencil, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
+import { uploadImage } from "@/lib/publish.functions";
+import { imageUrl } from "@/lib/queries";
+
+export function ImageField({
+  value,
+  onChange,
+}: {
+  value: string | null;
+  onChange: (path: string | null) => void;
+}) {
+  const upload = useServerFn(uploadImage);
+  const [busy, setBusy] = useState(false);
+
+  async function pick(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setBusy(true);
+    try {
+      const buf = await file.arrayBuffer();
+      let binary = "";
+      const bytes = new Uint8Array(buf);
+      for (let i = 0; i < bytes.length; i += 0x8000) {
+        binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+      }
+      const res = await upload({
+        data: {
+          fileName: file.name,
+          contentType: file.type,
+          dataBase64: btoa(binary),
+        },
+      });
+      onChange(res.path);
+      toast.success("Picture uploaded");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not upload that picture");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Field label="Picture (optional)">
+      <div className="flex items-center gap-4">
+        {value && (
+          <img
+            src={imageUrl(value)}
+            alt="Selected"
+            className="size-20 border border-border object-cover"
+          />
+        )}
+        <label className="cursor-pointer border border-ink px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] hover:bg-muted">
+          {busy ? "Uploading…" : value ? "Replace picture" : "Choose picture"}
+          <input type="file" accept="image/*" className="hidden" onChange={pick} disabled={busy} />
+        </label>
+        {value && (
+          <button
+            type="button"
+            onClick={() => onChange(null)}
+            className="text-xs uppercase tracking-wider text-destructive"
+          >
+            Remove
+          </button>
+        )}
+      </div>
+    </Field>
+  );
+}
 
 const base =
   "w-full border border-input bg-card px-3 py-2 text-sm outline-none focus:border-rust focus:ring-1 focus:ring-rust";
