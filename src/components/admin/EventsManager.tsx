@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Event } from "@/lib/queries";
 import { useAdminTable } from "./useAdminTable";
 import { formatDate } from "@/components/site/PageHeader";
-import { Checkbox, Field, FormShell, ItemRow, TextArea, TextInput } from "./fields";
+import { Checkbox, Field, FormShell, ItemRow, ImageField, TextArea, TextInput } from "./fields";
 
 const empty = {
   title: "",
@@ -11,6 +11,7 @@ const empty = {
   event_time: "",
   location: "",
   published: true,
+  image_path: null as string | null,
 };
 
 export function EventsManager() {
@@ -28,6 +29,7 @@ export function EventsManager() {
       event_time: ev.event_time,
       location: ev.location,
       published: ev.published,
+      image_path: ev.image_path,
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -88,6 +90,7 @@ export function EventsManager() {
             onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
         </Field>
+        <ImageField value={form.image_path} onChange={(v) => setForm({ ...form, image_path: v })} />
         <Checkbox
           label="Published (visible to everyone)"
           checked={form.published}

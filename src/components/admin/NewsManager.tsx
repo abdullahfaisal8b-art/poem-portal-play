@@ -2,9 +2,9 @@ import { useState } from "react";
 import type { News } from "@/lib/queries";
 import { useAdminTable } from "./useAdminTable";
 import { formatDate } from "@/components/site/PageHeader";
-import { Checkbox, Field, FormShell, ItemRow, TextArea, TextInput } from "./fields";
+import { Checkbox, Field, FormShell, ItemRow, ImageField, TextArea, TextInput } from "./fields";
 
-const empty = { title: "", summary: "", body: "", published: true };
+const empty = { title: "", summary: "", body: "", published: true, image_path: null as string | null };
 
 export function NewsManager() {
   const { data, saveRow, deleteRow } = useAdminTable<News>("news");
@@ -55,6 +55,7 @@ export function NewsManager() {
         <Field label="Full text">
           <TextArea value={form.body} onChange={(e) => setForm({ ...form, body: e.target.value })} />
         </Field>
+        <ImageField value={form.image_path} onChange={(v) => setForm({ ...form, image_path: v })} />
         <Checkbox
           label="Published (visible to everyone)"
           checked={form.published}
