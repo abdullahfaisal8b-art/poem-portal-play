@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Clock, MapPin } from "lucide-react";
-import { CLUB_NAME, eventsQuery, type Event } from "@/lib/queries";
+import { CLUB_NAME, eventsQuery, imageUrl, type Event } from "@/lib/queries";
 import { EmptyState, PageHeader } from "@/components/site/PageHeader";
 
 export const Route = createFileRoute("/events")({
@@ -77,6 +77,14 @@ function EventCard({ event, delay = 0 }: { event: Event; delay?: number }) {
         <span className="text-xs text-muted-foreground">{d.getFullYear()}</span>
       </div>
       <div className="min-w-0">
+        {event.image_path && (
+          <img
+            src={imageUrl(event.image_path)}
+            alt={event.title}
+            loading="lazy"
+            className="mb-4 aspect-video w-full border border-border object-cover"
+          />
+        )}
         <h3 className="text-2xl leading-tight">{event.title}</h3>
         <div className="mt-2 space-y-1 text-xs uppercase tracking-wider text-muted-foreground">
           {event.event_time && (

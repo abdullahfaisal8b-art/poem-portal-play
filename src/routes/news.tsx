@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { CLUB_NAME, newsQuery } from "@/lib/queries";
+import { CLUB_NAME, imageUrl, newsQuery } from "@/lib/queries";
 import { EmptyState, PageHeader, formatDate } from "@/components/site/PageHeader";
 
 export const Route = createFileRoute("/news")({
@@ -43,6 +43,14 @@ function NewsPage() {
               <p className="eyebrow">{formatDate(n.published_at)}</p>
               <h2 className="mt-3 text-4xl leading-tight">{n.title}</h2>
               {n.summary && <p className="mt-3 text-lg text-muted-foreground">{n.summary}</p>}
+              {n.image_path && (
+                <img
+                  src={imageUrl(n.image_path)}
+                  alt={n.title}
+                  loading="lazy"
+                  className="mt-6 w-full border border-border object-cover"
+                />
+              )}
               {n.body && (
                 <div className="mt-6 whitespace-pre-line leading-relaxed">{n.body}</div>
               )}
