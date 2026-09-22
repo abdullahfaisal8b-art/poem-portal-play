@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
-import { eventsQuery, type Event } from "@/lib/queries";
+import type { Event } from "@/lib/queries";
+import { useAdminTable } from "./useAdminTable";
 import { formatDate } from "@/components/site/PageHeader";
 import { Checkbox, Field, FormShell, ItemRow, TextArea, TextInput } from "./fields";
 
@@ -16,8 +14,7 @@ const empty = {
 };
 
 export function EventsManager() {
-  const qc = useQueryClient();
-  const { data } = useQuery(eventsQuery);
+  const { data, saveRow, deleteRow } = useAdminTable<Event>("events");
   const [form, setForm] = useState(empty);
   const [editing, setEditing] = useState<Event | null>(null);
   const [busy, setBusy] = useState(false);
@@ -43,28 +40,14 @@ export function EventsManager() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const { error } = editing
-      ? await supabase.from("events").update(form).eq("id", editing.id)
-      : await supabase.from("events").insert(form);
+    const ok = await saveRow(form, editing?.id);
     setBusy(false);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    toast.success(editing ? "Event updated" : "Event published");
-    reset();
-    qc.invalidateQueries({ queryKey: ["events"] });
+    if (ok) reset();
   }
 
   async function remove(ev: Event) {
     if (!confirm(`Delete "${ev.title}"?`)) return;
-    const { error } = await supabase.from("events").delete().eq("id", ev.id);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    toast.success("Deleted");
-    qc.invalidateQueries({ queryKey: ["events"] });
+    await deleteRow(ev.id);
   }
 
   return (

@@ -1,16 +1,13 @@
 import { useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
-import { newsQuery, type News } from "@/lib/queries";
+import type { News } from "@/lib/queries";
+import { useAdminTable } from "./useAdminTable";
 import { formatDate } from "@/components/site/PageHeader";
 import { Checkbox, Field, FormShell, ItemRow, TextArea, TextInput } from "./fields";
 
 const empty = { title: "", summary: "", body: "", published: true };
 
 export function NewsManager() {
-  const qc = useQueryClient();
-  const { data } = useQuery(newsQuery);
+  const { data, saveRow, deleteRow } = useAdminTable<News>("news");
   const [form, setForm] = useState(empty);
   const [editing, setEditing] = useState<News | null>(null);
   const [busy, setBusy] = useState(false);
@@ -29,28 +26,14 @@ export function NewsManager() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const { error } = editing
-      ? await supabase.from("news").update(form).eq("id", editing.id)
-      : await supabase.from("news").insert(form);
+    const ok = await saveRow(form, editing?.id);
     setBusy(false);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    toast.success(editing ? "News updated" : "News published");
-    reset();
-    qc.invalidateQueries({ queryKey: ["news"] });
+    if (ok) reset();
   }
 
   async function remove(n: News) {
     if (!confirm(`Delete "${n.title}"?`)) return;
-    const { error } = await supabase.from("news").delete().eq("id", n.id);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    toast.success("Deleted");
-    qc.invalidateQueries({ queryKey: ["news"] });
+    await deleteRow(n.id);
   }
 
   return (
