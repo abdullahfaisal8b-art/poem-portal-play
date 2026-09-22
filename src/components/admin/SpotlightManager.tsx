@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
-import { spotlightsQuery, type Spotlight } from "@/lib/queries";
+import type { Spotlight } from "@/lib/queries";
+import { useAdminTable } from "./useAdminTable";
 import { formatDate } from "@/components/site/PageHeader";
 import { Checkbox, Field, FormShell, ItemRow, TextArea, TextInput } from "./fields";
 
@@ -16,8 +14,7 @@ const empty = {
 };
 
 export function SpotlightManager() {
-  const qc = useQueryClient();
-  const { data } = useQuery(spotlightsQuery);
+  const { data, saveRow, deleteRow } = useAdminTable<Spotlight>("spotlights");
   const [form, setForm] = useState(empty);
   const [editing, setEditing] = useState<Spotlight | null>(null);
   const [busy, setBusy] = useState(false);
@@ -43,28 +40,14 @@ export function SpotlightManager() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const { error } = editing
-      ? await supabase.from("spotlights").update(form).eq("id", editing.id)
-      : await supabase.from("spotlights").insert(form);
+    const ok = await saveRow(form, editing?.id);
     setBusy(false);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    toast.success(editing ? "Spotlight updated" : "Spotlight published");
-    reset();
-    qc.invalidateQueries({ queryKey: ["spotlights"] });
+    if (ok) reset();
   }
 
   async function remove(s: Spotlight) {
     if (!confirm(`Delete the spotlight on ${s.writer_name}?`)) return;
-    const { error } = await supabase.from("spotlights").delete().eq("id", s.id);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    toast.success("Deleted");
-    qc.invalidateQueries({ queryKey: ["spotlights"] });
+    await deleteRow(s.id);
   }
 
   return (

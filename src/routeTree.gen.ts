@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as GameRouteImport } from './routes/game'
 import { Route as NewsRouteImport } from './routes/news'
+import { Route as PublishRouteImport } from './routes/publish'
 import { Route as SpotlightRouteImport } from './routes/spotlight'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const NewsRoute = NewsRouteImport.update({
   path: '/news',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PublishRoute = PublishRouteImport.update({
+  id: '/publish',
+  path: '/publish',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SpotlightRoute = SpotlightRouteImport.update({
   id: '/spotlight',
   path: '/spotlight',
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/game': typeof GameRoute
   '/news': typeof NewsRoute
+  '/publish': typeof PublishRoute
   '/spotlight': typeof SpotlightRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/game': typeof GameRoute
   '/news': typeof NewsRoute
+  '/publish': typeof PublishRoute
   '/spotlight': typeof SpotlightRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,16 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/game': typeof GameRoute
   '/news': typeof NewsRoute
+  '/publish': typeof PublishRoute
   '/spotlight': typeof SpotlightRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/events' | '/game' | '/news' | '/spotlight'
+  fullPaths: '/' | '/events' | '/game' | '/news' | '/publish' | '/spotlight'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/events' | '/game' | '/news' | '/spotlight'
-  id: '__root__' | '/' | '/events' | '/game' | '/news' | '/spotlight'
+  to: '/' | '/events' | '/game' | '/news' | '/publish' | '/spotlight'
+  id:
+    '__root__' | '/' | '/events' | '/game' | '/news' | '/publish' | '/spotlight'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +86,7 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   GameRoute: typeof GameRoute
   NewsRoute: typeof NewsRoute
+  PublishRoute: typeof PublishRoute
   SpotlightRoute: typeof SpotlightRoute
 }
 
@@ -109,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/publish': {
+      id: '/publish'
+      path: '/publish'
+      fullPath: '/publish'
+      preLoaderRoute: typeof PublishRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/spotlight': {
       id: '/spotlight'
       path: '/spotlight'
@@ -124,6 +142,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   GameRoute: GameRoute,
   NewsRoute: NewsRoute,
+  PublishRoute: PublishRoute,
   SpotlightRoute: SpotlightRoute,
 }
 export const routeTree = rootRouteImport
