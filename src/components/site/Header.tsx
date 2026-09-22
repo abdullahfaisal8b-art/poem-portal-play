@@ -1,9 +1,6 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Feather, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "@/hooks/useAuth";
-import { supabase } from "@/integrations/supabase/client";
 import { CLUB_NAME } from "@/lib/queries";
 
 const links = [
@@ -16,16 +13,6 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const { user, isAdmin } = useAuth();
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-
-  async function signOut() {
-    await queryClient.cancelQueries();
-    queryClient.clear();
-    await supabase.auth.signOut();
-    navigate({ to: "/", replace: true });
-  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-paper/85 backdrop-blur">
@@ -41,22 +28,6 @@ export function Header() {
               {l.label}
             </Link>
           ))}
-          {user ? (
-            <div className="flex items-center gap-4">
-              {isAdmin && (
-                <Link to="/admin" className="nav-link">
-                  Publish
-                </Link>
-              )}
-              <button onClick={signOut} className="nav-link cursor-pointer">
-                Sign out
-              </button>
-            </div>
-          ) : (
-            <Link to="/auth" className="nav-link">
-              Sign in
-            </Link>
-          )}
         </nav>
 
         <button
@@ -81,22 +52,6 @@ export function Header() {
               {l.label}
             </Link>
           ))}
-          {user ? (
-            <>
-              {isAdmin && (
-                <Link to="/admin" className="nav-link" onClick={() => setOpen(false)}>
-                  Publish
-                </Link>
-              )}
-              <button onClick={signOut} className="nav-link w-fit cursor-pointer">
-                Sign out
-              </button>
-            </>
-          ) : (
-            <Link to="/auth" className="nav-link" onClick={() => setOpen(false)}>
-              Sign in
-            </Link>
-          )}
         </nav>
       )}
     </header>

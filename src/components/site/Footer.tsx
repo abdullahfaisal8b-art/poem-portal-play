@@ -22,8 +22,8 @@ export function Footer() {
           <Link to="/game" className="hover:text-ink">
             Game
           </Link>
-          <Link to="/auth" className="hover:text-ink">
-            Members
+          <Link to="/publish" className="hover:text-ink">
+            Publish
           </Link>
         </nav>
         <p className="text-xs text-muted-foreground">
