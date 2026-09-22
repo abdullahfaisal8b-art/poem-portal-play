@@ -57,11 +57,14 @@ export const getPublishStatus = createServerFn({ method: "GET" }).handler(async 
 
 // ---- Content management (all gated) ---------------------------------------
 
+const image = z.string().nullable().optional();
+
 const newsInput = z.object({
   title: z.string().min(1),
   summary: z.string(),
   body: z.string(),
   published: z.boolean(),
+  image_path: image,
 });
 const spotlightInput = z.object({
   writer_name: z.string().min(1),
@@ -70,6 +73,7 @@ const spotlightInput = z.object({
   poem_title: z.string(),
   poem: z.string().min(1),
   published: z.boolean(),
+  image_path: image,
 });
 const eventInput = z.object({
   title: z.string().min(1),
@@ -78,7 +82,36 @@ const eventInput = z.object({
   event_time: z.string(),
   location: z.string(),
   published: z.boolean(),
+  image_path: image,
 });
+
+const MAX_BYTES = 8 * 1024 * 1024;
+const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/avif"];
+
+export const uploadImage = createServerFn({ method: "POST" })
+  .inputValidator((d) =>
+    z
+      .object({
+        fileName: z.string().min(1).max(200),
+        contentType: z.string().min(1),
+        dataBase64: z.string().min(1),
+      })
+      .parse(d),
+  )
+  .handler(async ({ data }) => {
+    await requireUnlocked();
+    if (!allowedTypes.includes(data.contentType)) throw new Error("That file type isn't supported.");
+    const bytes = Buffer.from(data.dataBase64, "base64");
+    if (bytes.byteLength > MAX_BYTES) throw new Error("That picture is larger than 8 MB.");
+    const ext = (data.fileName.split(".").pop() ?? "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const path = `${crypto.randomUUID()}.${ext || "jpg"}`;
+    const db = await admin();
+    const { error } = await db.storage
+      .from("poetry-images")
+      .upload(path, bytes, { contentType: data.contentType, upsert: false });
+    if (error) throw new Error(error.message);
+    return { path };
+  });
 
 const tableSchema = z.enum(["news", "spotlights", "events"]);
 type Table = z.infer<typeof tableSchema>;
