@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { CLUB_NAME, CLUB_TAGLINE } from "@/lib/queries";
+import bcpLogo from "@/assets/bcp-logo.png.asset.json";
 
 export function Footer() {
   return (
