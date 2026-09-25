@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { CLUB_NAME, CLUB_TAGLINE } from "@/lib/queries";
+import bcpLogo from "@/assets/bcp-logo.png.asset.json";
 
 export function Footer() {
   return (
@@ -8,6 +9,13 @@ export function Footer() {
         <div>
           <p className="font-display text-2xl">{CLUB_NAME}</p>
           <p className="text-sm text-muted-foreground">{CLUB_TAGLINE}</p>
+          <img
+            src={bcpLogo.url}
+            alt="Beacon House College Programme"
+            className="mt-5 h-9 w-auto"
+            width={1149}
+            height={366}
+          />
         </div>
         <nav className="flex flex-wrap gap-6 text-xs uppercase tracking-[0.18em] text-muted-foreground">
           <Link to="/spotlight" className="hover:text-ink">
