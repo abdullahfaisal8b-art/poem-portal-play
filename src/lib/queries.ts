@@ -42,7 +42,7 @@ export const eventsQuery = queryOptions({
   },
 });
 
-export const CLUB_NAME = "The Verse Society";
+export const CLUB_NAME = "The Literary Society";
 export const CLUB_TAGLINE = "The College Poetry Club";
 
 export const imageUrl = (path: string) => `/api/public/images/${path}`;
