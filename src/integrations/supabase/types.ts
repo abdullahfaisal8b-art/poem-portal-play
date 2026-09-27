@@ -131,6 +131,39 @@ export type Database = {
         }
         Relationships: []
       }
+      submissions: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          note: string
+          status: string
+          title: string
+          work_type: string
+          writer_name: string
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          id?: string
+          note?: string
+          status?: string
+          title?: string
+          work_type?: string
+          writer_name: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          note?: string
+          status?: string
+          title?: string
+          work_type?: string
+          writer_name?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           id: string
