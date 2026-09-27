@@ -9,11 +9,23 @@ function shuffleWord(word: string): Tile[] {
   const tiles = word.split("").map((letter, id) => ({ id, letter }));
   for (let i = tiles.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+    const left = tiles[i];
+    const right = tiles[j];
+    if (left && right) {
+      tiles[i] = right;
+      tiles[j] = left;
+    }
   }
   if (tiles.map((tile) => tile.letter).join("") === word && tiles.length > 1) {
-    const different = tiles.findIndex((tile) => tile.letter !== tiles[0].letter);
-    if (different > 0) [tiles[0], tiles[different]] = [tiles[different], tiles[0]];
+    const first = tiles[0];
+    if (first) {
+      const different = tiles.findIndex((tile) => tile.letter !== first.letter);
+      const other = tiles[different];
+      if (different > 0 && other) {
+        tiles[0] = other;
+        tiles[different] = first;
+      }
+    }
   }
   return tiles;
 }
