@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      corner: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          kind: string
+          month: string
+          published: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          id?: string
+          kind?: string
+          month?: string
+          published?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          kind?: string
+          month?: string
+          published?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           created_at: string
