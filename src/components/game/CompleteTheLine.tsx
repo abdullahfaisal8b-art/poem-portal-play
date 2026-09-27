@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Check, RotateCcw, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LINES, pick, shuffle } from "@/lib/games";
+import { LINES } from "@/lib/games";
 
 export function CompleteTheLine() {
   const [index, setIndex] = useState(() => Math.floor(Math.random() * LINES.length));
@@ -10,10 +10,9 @@ export function CompleteTheLine() {
   const [streak, setStreak] = useState(0);
 
   const entry = LINES[index];
-  const options = useMemo(() => shuffle(entry.options), [index, chosen === null]);
+  const options = useMemo(() => shuffleLocal(entry.options), [index]);
 
   const answered = chosen !== null;
-  const correct = chosen === entry.answer;
 
   function choose(option: string) {
     if (answered) return;
@@ -26,18 +25,21 @@ export function CompleteTheLine() {
     }
   }
 
+  function go(nextIndex: number) {
+    setIndex(nextIndex);
+    setChosen(null);
+  }
+
   function next() {
     let i = index;
     while (i === index) i = Math.floor(Math.random() * LINES.length);
-    setIndex(i);
-    setChosen(null);
+    go(i);
   }
 
   function reset() {
     setScore(0);
     setStreak(0);
-    setChosen(null);
-    setIndex(pick(LINES.map((_, i) => i)));
+    go(Math.floor(Math.random() * LINES.length));
   }
 
   return (
@@ -85,7 +87,7 @@ export function CompleteTheLine() {
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6">
         <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          {answered ? entry.source : "Which poet wrote it?"}
+          {answered ? entry.source : "Who wrote it?"}
         </p>
         <div className="flex gap-3">
           <Button variant="outline" size="sm" onClick={reset} className="rounded-none">
@@ -98,4 +100,13 @@ export function CompleteTheLine() {
       </div>
     </div>
   );
+}
+
+function shuffleLocal(items: string[]): string[] {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
 }
