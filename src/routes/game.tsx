@@ -9,13 +9,15 @@ import { useState } from "react";
 export const Route = createFileRoute("/game")({
   head: () => ({
     meta: [
-      { title: `Word Game — ${CLUB_NAME}` },
+      { title: `Poetry Games — ${CLUB_NAME}` },
       {
         name: "description",
         content: "Play poetry word games: guess the hidden word or solve a word scramble puzzle.",
       },
-      { property: "og:title", content: `Word Game — ${CLUB_NAME}` },
+      { property: "og:title", content: `Poetry Games — ${CLUB_NAME}` },
       { property: "og:description", content: "Guess hidden poetry words and solve word scramble puzzles." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: GamePage,

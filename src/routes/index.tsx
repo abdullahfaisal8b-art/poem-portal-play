@@ -14,6 +14,8 @@ export const Route = createFileRoute("/")({
           "The college poetry club: writers spotlight, daily news, upcoming events and poetry games.",
       },
       { property: "og:title", content: `${CLUB_NAME} — ${CLUB_TAGLINE}` },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       {
         property: "og:description",
         content: "Writers spotlight, daily news, events and poetry games.",

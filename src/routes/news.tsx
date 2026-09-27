@@ -13,6 +13,8 @@ export const Route = createFileRoute("/news")({
       },
       { property: "og:title", content: `Daily News — ${CLUB_NAME}` },
       { property: "og:description", content: "Daily notes and announcements from the club." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: NewsPage,

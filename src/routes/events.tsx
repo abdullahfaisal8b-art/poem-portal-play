@@ -14,6 +14,8 @@ export const Route = createFileRoute("/events")({
       },
       { property: "og:title", content: `Events — ${CLUB_NAME}` },
       { property: "og:description", content: "Readings, workshops and open mics." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: EventsPage,

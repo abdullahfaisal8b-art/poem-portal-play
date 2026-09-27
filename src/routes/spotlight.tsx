@@ -13,6 +13,8 @@ export const Route = createFileRoute("/spotlight")({
       },
       { property: "og:title", content: `Writers Spotlight — ${CLUB_NAME}` },
       { property: "og:description", content: "Featured poets and their work." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: SpotlightPage,
