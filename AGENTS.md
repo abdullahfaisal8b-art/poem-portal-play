@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+Game architecture: Keep the letter-guess and word-scramble games as separate components under the shared /game page, using the common poetry word list so both modes remain independently maintainable.

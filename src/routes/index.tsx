@@ -11,12 +11,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "The college poetry club: writers spotlight, daily news, upcoming events and a word game for poets.",
+          "The college poetry club: writers spotlight, daily news, upcoming events and poetry games.",
       },
       { property: "og:title", content: `${CLUB_NAME} — ${CLUB_TAGLINE}` },
       {
         property: "og:description",
-        content: "Writers spotlight, daily news, events and a word game for poets.",
+        content: "Writers spotlight, daily news, events and poetry games.",
       },
     ],
   }),
@@ -44,7 +44,7 @@ function Index() {
           </h1>
           <p className="mt-8 max-w-lg text-lg text-muted-foreground">
             A home for the college's poets: weekly spotlights on our writers, the club's daily
-            notes, readings and workshops, and a small game to sharpen your vocabulary.
+             notes, readings and workshops, and poetry games to sharpen your vocabulary.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <Link
@@ -57,7 +57,7 @@ function Index() {
               to="/game"
               className="inline-flex items-center gap-2 border border-ink px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] transition-colors hover:bg-ink hover:text-ink-foreground"
             >
-              Play the word game
+               Play the games
             </Link>
           </div>
         </div>
