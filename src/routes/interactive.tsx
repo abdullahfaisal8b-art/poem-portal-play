@@ -6,7 +6,7 @@ import { PoetryPuzzle } from "@/components/game/PoetryPuzzle";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-export const Route = createFileRoute("/game")({
+export const Route = createFileRoute("/interactive")({
   head: () => ({
     meta: [
       { title: `Poetry Games — ${CLUB_NAME}` },

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { CLUB_NAME, imageUrl, newsQuery } from "@/lib/queries";
 import { EmptyState, PageHeader, formatDate } from "@/components/site/PageHeader";
 
-export const Route = createFileRoute("/news")({
+export const Route = createFileRoute("/campus")({
   head: () => ({
     meta: [
       { title: `Daily News — ${CLUB_NAME}` },

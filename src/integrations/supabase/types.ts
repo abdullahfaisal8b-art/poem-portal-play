@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      corner: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          kind: string
+          month: string
+          published: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          id?: string
+          kind?: string
+          month?: string
+          published?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          kind?: string
+          month?: string
+          published?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           created_at: string
@@ -127,6 +160,39 @@ export type Database = {
           poem_title?: string
           published?: boolean
           updated_at?: string
+          writer_name?: string
+        }
+        Relationships: []
+      }
+      submissions: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          note: string
+          status: string
+          title: string
+          work_type: string
+          writer_name: string
+        }
+        Insert: {
+          body?: string
+          created_at?: string
+          id?: string
+          note?: string
+          status?: string
+          title?: string
+          work_type?: string
+          writer_name: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          note?: string
+          status?: string
+          title?: string
+          work_type?: string
           writer_name?: string
         }
         Relationships: []
