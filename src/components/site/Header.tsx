@@ -9,7 +9,7 @@ const links = [
   { to: "/spotlight", label: "Writers Spotlight" },
   { to: "/news", label: "Daily News" },
   { to: "/events", label: "Events" },
-  { to: "/game", label: "Word Game" },
+  { to: "/game", label: "Games" },
 ] as const;
 
 export function Header() {

@@ -17,6 +17,8 @@ export const Route = createFileRoute("/publish")({
       { name: "description", content: "Private publishing desk for the poetry club." },
       { property: "og:title", content: `Publish — ${CLUB_NAME}` },
       { property: "og:description", content: "Private publishing desk." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
   }),

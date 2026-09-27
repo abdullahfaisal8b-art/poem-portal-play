@@ -54,7 +54,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-display: "Cormorant Garamond", "Georgia", serif;
   --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
-  --shadow-paper: 0 1px 2px oklch(0.25 0.03 60 / 6%), 0 12px 32px -16px oklch(0.25 0.03 60 / 25%);
+  --shadow-paper: 0 1px 2px color-mix(in oklab, var(--ink) 6%, transparent), 0 12px 32px -16px color-mix(in oklab, var(--ink) 25%, transparent);
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   --animate-tile-pop: tile-pop 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   --animate-shake: shake 0.4s ease-in-out both;
@@ -98,41 +98,41 @@
 
 :root {
   --radius: 0.25rem;
-  /* Aged paper & ink palette */
-  --paper: oklch(0.965 0.012 85);
-  --paper-deep: oklch(0.93 0.018 82);
-  --ink: oklch(0.22 0.02 50);
-  --ink-foreground: oklch(0.965 0.012 85);
-  --rust: oklch(0.52 0.15 35);
-  --rust-foreground: oklch(0.975 0.01 85);
-  --moss: oklch(0.45 0.06 150);
-  --gold: oklch(0.72 0.12 80);
-  --success: oklch(0.55 0.12 150);
+  /* Dark blue, lavender blue, and white */
+  --paper: oklch(0.99 0.004 260);
+  --paper-deep: oklch(0.93 0.027 278);
+  --ink: oklch(0.27 0.09 258);
+  --ink-foreground: oklch(0.99 0.004 260);
+  --rust: oklch(0.39 0.12 268);
+  --rust-foreground: oklch(0.99 0.004 260);
+  --moss: oklch(0.35 0.10 252);
+  --gold: oklch(0.70 0.08 280);
+  --success: oklch(0.42 0.10 252);
 
   --background: var(--paper);
   --foreground: var(--ink);
-  --card: oklch(0.985 0.008 85);
+  --card: oklch(1 0 0);
   --card-foreground: var(--ink);
-  --popover: oklch(0.985 0.008 85);
+  --popover: oklch(1 0 0);
   --popover-foreground: var(--ink);
   --primary: var(--ink);
   --primary-foreground: var(--ink-foreground);
   --secondary: var(--paper-deep);
   --secondary-foreground: var(--ink);
   --muted: var(--paper-deep);
-  --muted-foreground: oklch(0.48 0.02 55);
+  --muted-foreground: oklch(0.45 0.05 260);
   --accent: var(--rust);
   --accent-foreground: var(--rust-foreground);
-  --destructive: oklch(0.55 0.2 27);
-  --destructive-foreground: oklch(0.975 0.01 85);
-  --border: oklch(0.85 0.02 80);
-  --input: oklch(0.85 0.02 80);
+  --destructive: oklch(0.47 0.18 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.82 0.035 273);
+  --input: oklch(0.82 0.035 273);
   --ring: var(--rust);
   --chart-1: var(--rust);
   --chart-2: var(--moss);
   --chart-3: var(--gold);
   --chart-4: var(--ink);
-  --chart-5: oklch(0.6 0.08 250);
+  --chart-5: oklch(0.67 0.05 275);
   --sidebar: var(--paper-deep);
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--ink);
@@ -160,12 +160,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    background-image: radial-gradient(
-        circle at 15% 10%,
-        oklch(0.98 0.01 85 / 80%),
-        transparent 40%
-      ),
-      radial-gradient(circle at 85% 90%, oklch(0.9 0.03 75 / 60%), transparent 45%);
+    background-image: linear-gradient(180deg, var(--color-background), var(--color-paper-deep));
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
   }
@@ -177,7 +172,14 @@
   .font-display {
     font-family: var(--font-display);
     font-weight: 500;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
