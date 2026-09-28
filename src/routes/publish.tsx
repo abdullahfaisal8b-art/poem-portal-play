@@ -9,6 +9,8 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { NewsManager } from "@/components/admin/NewsManager";
 import { SpotlightManager } from "@/components/admin/SpotlightManager";
 import { EventsManager } from "@/components/admin/EventsManager";
+import { CornerManager } from "@/components/admin/CornerManager";
+import { SubmissionsManager } from "@/components/admin/SubmissionsManager";
 
 export const Route = createFileRoute("/publish")({
   head: () => ({
@@ -25,7 +27,7 @@ export const Route = createFileRoute("/publish")({
   component: PublishPage,
 });
 
-type Tab = "news" | "spotlight" | "events";
+type Tab = "news" | "spotlight" | "corner" | "events" | "submissions";
 
 function PublishPage() {
   const status = useQuery({ queryKey: ["publish-status"], queryFn: () => getPublishStatus() });
@@ -103,9 +105,11 @@ function Desk() {
   }
 
   const tabs: { id: Tab; label: string }[] = [
-    { id: "news", label: "Daily News" },
-    { id: "spotlight", label: "Writers Spotlight" },
+    { id: "news", label: "Campus" },
+    { id: "spotlight", label: "Spotlights" },
+    { id: "corner", label: "Literary Corner" },
     { id: "events", label: "Events" },
+    { id: "submissions", label: "Submissions" },
   ];
 
   return (
@@ -116,8 +120,8 @@ function Desk() {
         intro="Everything you publish here appears on the site immediately. Untick 'Published' to keep a draft private."
       />
       <div className="mx-auto max-w-4xl px-5">
-        <div className="mb-10 flex items-center justify-between border-b border-border">
-          <div className="flex gap-8">
+        <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-border">
+          <div className="flex flex-wrap gap-6">
             {tabs.map((t) => (
               <button
                 key={t.id}
@@ -141,7 +145,9 @@ function Desk() {
         </div>
         {tab === "news" && <NewsManager />}
         {tab === "spotlight" && <SpotlightManager />}
+        {tab === "corner" && <CornerManager />}
         {tab === "events" && <EventsManager />}
+        {tab === "submissions" && <SubmissionsManager />}
       </div>
     </>
   );
