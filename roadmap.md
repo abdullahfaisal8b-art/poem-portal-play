@@ -8,4 +8,4 @@
 - [x] Rebuild navigation: Home | Campus | Spotlights | Creative | Interactive | Events, plus Archive
 - [x] Add more games under Interactive
 - [x] Literary Corner inside Creative: Book of the Month + Literary Note (monthly, editable)
-- [ ] Change the site's web address (waiting on the user to pick the address they want)
+- [ ] Remove the platform's name from the site's web address — needs the user's own domain (they don't own one yet); front-part rename still on offer
