@@ -14,7 +14,9 @@ import { Route as ArchiveRouteImport } from './routes/archive'
 import { Route as CampusRouteImport } from './routes/campus'
 import { Route as CreativeRouteImport } from './routes/creative'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as GameRouteImport } from './routes/game'
 import { Route as InteractiveRouteImport } from './routes/interactive'
+import { Route as NewsRouteImport } from './routes/news'
 import { Route as PublishRouteImport } from './routes/publish'
 import { Route as SpotlightRouteImport } from './routes/spotlight'
 import { Route as ApiPublicImagesPathRouteImport } from './routes/api/public/images/$path'
@@ -44,9 +46,19 @@ const EventsRoute = EventsRouteImport.update({
   path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GameRoute = GameRouteImport.update({
+  id: '/game',
+  path: '/game',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InteractiveRoute = InteractiveRouteImport.update({
   id: '/interactive',
   path: '/interactive',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublishRoute = PublishRouteImport.update({
@@ -71,7 +83,9 @@ export interface FileRoutesByFullPath {
   '/campus': typeof CampusRoute
   '/creative': typeof CreativeRoute
   '/events': typeof EventsRoute
+  '/game': typeof GameRoute
   '/interactive': typeof InteractiveRoute
+  '/news': typeof NewsRoute
   '/publish': typeof PublishRoute
   '/spotlight': typeof SpotlightRoute
   '/api/public/images/$path': typeof ApiPublicImagesPathRoute
@@ -82,7 +96,9 @@ export interface FileRoutesByTo {
   '/campus': typeof CampusRoute
   '/creative': typeof CreativeRoute
   '/events': typeof EventsRoute
+  '/game': typeof GameRoute
   '/interactive': typeof InteractiveRoute
+  '/news': typeof NewsRoute
   '/publish': typeof PublishRoute
   '/spotlight': typeof SpotlightRoute
   '/api/public/images/$path': typeof ApiPublicImagesPathRoute
@@ -94,7 +110,9 @@ export interface FileRoutesById {
   '/campus': typeof CampusRoute
   '/creative': typeof CreativeRoute
   '/events': typeof EventsRoute
+  '/game': typeof GameRoute
   '/interactive': typeof InteractiveRoute
+  '/news': typeof NewsRoute
   '/publish': typeof PublishRoute
   '/spotlight': typeof SpotlightRoute
   '/api/public/images/$path': typeof ApiPublicImagesPathRoute
@@ -107,7 +125,9 @@ export interface FileRouteTypes {
     | '/campus'
     | '/creative'
     | '/events'
+    | '/game'
     | '/interactive'
+    | '/news'
     | '/publish'
     | '/spotlight'
     | '/api/public/images/$path'
@@ -118,7 +138,9 @@ export interface FileRouteTypes {
     | '/campus'
     | '/creative'
     | '/events'
+    | '/game'
     | '/interactive'
+    | '/news'
     | '/publish'
     | '/spotlight'
     | '/api/public/images/$path'
@@ -129,7 +151,9 @@ export interface FileRouteTypes {
     | '/campus'
     | '/creative'
     | '/events'
+    | '/game'
     | '/interactive'
+    | '/news'
     | '/publish'
     | '/spotlight'
     | '/api/public/images/$path'
@@ -141,7 +165,9 @@ export interface RootRouteChildren {
   CampusRoute: typeof CampusRoute
   CreativeRoute: typeof CreativeRoute
   EventsRoute: typeof EventsRoute
+  GameRoute: typeof GameRoute
   InteractiveRoute: typeof InteractiveRoute
+  NewsRoute: typeof NewsRoute
   PublishRoute: typeof PublishRoute
   SpotlightRoute: typeof SpotlightRoute
   ApiPublicImagesPathRoute: typeof ApiPublicImagesPathRoute
@@ -184,11 +210,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/game': {
+      id: '/game'
+      path: '/game'
+      fullPath: '/game'
+      preLoaderRoute: typeof GameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/interactive': {
       id: '/interactive'
       path: '/interactive'
       fullPath: '/interactive'
       preLoaderRoute: typeof InteractiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/publish': {
@@ -221,7 +261,9 @@ const rootRouteChildren: RootRouteChildren = {
   CampusRoute: CampusRoute,
   CreativeRoute: CreativeRoute,
   EventsRoute: EventsRoute,
+  GameRoute: GameRoute,
   InteractiveRoute: InteractiveRoute,
+  NewsRoute: NewsRoute,
   PublishRoute: PublishRoute,
   SpotlightRoute: SpotlightRoute,
   ApiPublicImagesPathRoute: ApiPublicImagesPathRoute,

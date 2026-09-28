@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { adminDelete, adminList, adminSave } from "@/lib/publish.functions";
 
-type Table = "news" | "spotlights" | "events";
+type Table = "news" | "spotlights" | "events" | "corner";
 
 export function useAdminTable<T extends { id: string }>(table: Table) {
   const qc = useQueryClient();
