@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { CLUB_NAME, CLUB_TAGLINE } from "@/lib/queries";
+import { CLUB_NAME, CLUB_TAGLINE, NAV_LINKS } from "@/lib/queries";
 import bcpLogo from "@/assets/bcp-logo.png.asset.json";
 
 export function Footer() {
@@ -18,17 +18,13 @@ export function Footer() {
           />
         </div>
         <nav className="flex flex-wrap gap-6 text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          <Link to="/spotlight" className="hover:text-ink">
-            Spotlight
-          </Link>
-          <Link to="/news" className="hover:text-ink">
-            News
-          </Link>
-          <Link to="/events" className="hover:text-ink">
-            Events
-          </Link>
-          <Link to="/game" className="hover:text-ink">
-            Game
+          {NAV_LINKS.filter((l) => l.to !== "/").map((l) => (
+            <Link key={l.to} to={l.to} className="hover:text-ink">
+              {l.label}
+            </Link>
+          ))}
+          <Link to="/archive" className="hover:text-ink">
+            Archive
           </Link>
           <Link to="/publish" className="hover:text-ink">
             Publish

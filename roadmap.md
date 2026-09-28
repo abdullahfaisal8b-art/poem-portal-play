@@ -5,6 +5,6 @@
 
 - [x] Add a poetry puzzle game to the game section
 - [x] Change the site palette to dark blue, light lavender-blue, and white
-- [ ] Rebuild navigation: Home | Campus | Spotlights | Creative | Interactive | Events, plus Archive
-- [ ] Add more games under Interactive
-- [ ] Literary Corner inside Creative: Book of the Month + Literary Note (monthly, editable)
+- [x] Rebuild navigation: Home | Campus | Spotlights | Creative | Interactive | Events, plus Archive
+- [x] Add more games under Interactive
+- [x] Literary Corner inside Creative: Book of the Month + Literary Note (monthly, editable)

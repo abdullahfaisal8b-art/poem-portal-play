@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, CalendarDays, Newspaper, Sparkles } from "lucide-react";
-import { CLUB_NAME, CLUB_TAGLINE, eventsQuery, newsQuery, spotlightsQuery } from "@/lib/queries";
+import { CLUB_NAME, CLUB_TAGLINE, cornerQuery, eventsQuery, newsQuery, spotlightsQuery } from "@/lib/queries";
 import { formatDate } from "@/components/site/PageHeader";
 
 export const Route = createFileRoute("/")({
@@ -29,6 +29,10 @@ function Index() {
   const spotlights = useQuery(spotlightsQuery);
   const news = useQuery(newsQuery);
   const events = useQuery(eventsQuery);
+  const corner = useQuery(cornerQuery);
+
+  const book = corner.data?.find((c) => c.kind === "book");
+  const note = corner.data?.find((c) => c.kind === "note");
 
   const featured = spotlights.data?.[0];
   const latestNews = news.data?.slice(0, 3) ?? [];
@@ -45,8 +49,8 @@ function Index() {
             Where the quiet <em className="text-rust">lines</em> get read aloud.
           </h1>
           <p className="mt-8 max-w-lg text-lg text-muted-foreground">
-            A home for the college's poets: weekly spotlights on our writers, the club's daily
-             notes, readings and workshops, and poetry games to sharpen your vocabulary.
+            A home for the college's poets: writer spotlights, notes from around campus, a monthly
+            literary corner, readings and workshops, and five poetry games to sharpen your ear.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <Link
@@ -56,7 +60,7 @@ function Index() {
               Read the spotlight <ArrowRight className="size-4" />
             </Link>
             <Link
-              to="/game"
+              to="/interactive"
               className="inline-flex items-center gap-2 border border-ink px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] transition-colors hover:bg-ink hover:text-ink-foreground"
             >
                Play the games
@@ -81,6 +85,51 @@ function Index() {
         </div>
       </section>
 
+      {/* Literary Corner */}
+      <section className="rule-top py-12">
+        <div className="flex flex-wrap items-baseline justify-between gap-3">
+          <h2 className="font-display text-3xl md:text-4xl">The Literary Corner</h2>
+          <Link
+            to="/creative"
+            className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.18em] hover:text-rust"
+          >
+            Send us your work <ArrowRight className="size-3" />
+          </Link>
+        </div>
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <div className="paper-card p-7">
+            <p className="eyebrow">Book of the month</p>
+            {book ? (
+              <>
+                <p className="mt-3 font-display text-2xl leading-tight">{book.title}</p>
+                <p className="mt-2 line-clamp-4 whitespace-pre-line text-sm text-muted-foreground">
+                  {book.body}
+                </p>
+              </>
+            ) : (
+              <p className="mt-3 font-display text-xl italic text-muted-foreground">
+                This month's pick will be shelved here.
+              </p>
+            )}
+          </div>
+          <div className="paper-card p-7">
+            <p className="eyebrow">Literary note</p>
+            {note ? (
+              <>
+                <p className="mt-3 font-display text-2xl leading-tight">{note.title}</p>
+                <p className="mt-2 line-clamp-4 whitespace-pre-line text-sm text-muted-foreground">
+                  {note.body}
+                </p>
+              </>
+            ) : (
+              <p className="mt-3 font-display text-xl italic text-muted-foreground">
+                A short literary fact or author feature goes here.
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* Three columns */}
       <section className="rule-top grid gap-12 py-14 md:grid-cols-3">
         <Column
@@ -96,9 +145,9 @@ function Index() {
         />
         <Column
           icon={<Newspaper className="size-4" />}
-          title="Daily News"
-          to="/news"
-          empty="No news posted yet."
+          title="Campus"
+          to="/campus"
+          empty="No campus notes posted yet."
           items={latestNews.map((n) => ({
             id: n.id,
             title: n.title,
@@ -130,7 +179,7 @@ function Column({
 }: {
   icon: React.ReactNode;
   title: string;
-  to: "/spotlight" | "/news" | "/events";
+  to: "/spotlight" | "/campus" | "/events";
   items: { id: string; title: string; meta: string }[];
   empty: string;
 }) {
