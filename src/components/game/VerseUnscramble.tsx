@@ -47,9 +47,7 @@ export function VerseUnscramble() {
   }
 
   function reshuffle() {
-    setPicked([]);
-    setChecked(false);
-    setIndex((i) => (i + 1) % VERSES.length === index ? (i + 2) % VERSES.length : (i + 1) % VERSES.length);
+    next();
   }
 
   return (
