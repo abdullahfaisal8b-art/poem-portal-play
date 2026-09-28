@@ -1,16 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { CLUB_NAME } from "@/lib/queries";
+import { CLUB_NAME, NAV_LINKS } from "@/lib/queries";
 import bcpEmblem from "@/assets/bcp-emblem.png.asset.json";
-
-const links = [
-  { to: "/", label: "Home" },
-  { to: "/spotlight", label: "Writers Spotlight" },
-  { to: "/news", label: "Daily News" },
-  { to: "/events", label: "Events" },
-  { to: "/game", label: "Games" },
-] as const;
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -34,8 +26,8 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {links.map((l) => (
+        <nav className="hidden items-center gap-7 lg:flex">
+          {NAV_LINKS.map((l) => (
             <Link key={l.to} to={l.to} className="nav-link" activeOptions={{ exact: l.to === "/" }}>
               {l.label}
             </Link>
@@ -43,7 +35,7 @@ export function Header() {
         </nav>
 
         <button
-          className="md:hidden"
+          className="lg:hidden"
           aria-label="Toggle menu"
           onClick={() => setOpen((o) => !o)}
         >
@@ -52,8 +44,8 @@ export function Header() {
       </div>
 
       {open && (
-        <nav className="flex flex-col gap-5 border-t border-border px-5 py-6 md:hidden">
-          {links.map((l) => (
+        <nav className="flex flex-col gap-5 border-t border-border px-5 py-6 lg:hidden">
+          {NAV_LINKS.map((l) => (
             <Link
               key={l.to}
               to={l.to}
@@ -64,8 +56,35 @@ export function Header() {
               {l.label}
             </Link>
           ))}
+          <Link
+            to="/archive"
+            className="nav-link border-t border-border pt-5"
+            onClick={() => setOpen(false)}
+          >
+            Archive
+          </Link>
         </nav>
       )}
+
+      {/* Second bar: the archive, kept apart from the main menu. */}
+      <div className="border-t border-border/70 bg-paper-deep/60">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-2">
+          <Link
+            to="/archive"
+            className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-ink"
+          >
+            Archive
+          </Link>
+          <span className="hidden text-[10px] uppercase tracking-[0.22em] text-muted-foreground sm:block">
+            {new Date().toLocaleDateString("en-GB", {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </span>
+        </div>
+      </div>
     </header>
   );
 }

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CampusRouteImport } from './routes/campus'
+import { Route as CreativeRouteImport } from './routes/creative'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as InteractiveRouteImport } from './routes/interactive'
 import { Route as PublishRouteImport } from './routes/publish'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const CampusRoute = CampusRouteImport.update({
   id: '/campus',
   path: '/campus',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreativeRoute = CreativeRouteImport.update({
+  id: '/creative',
+  path: '/creative',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsRoute = EventsRouteImport.update({
@@ -56,6 +62,7 @@ const ApiPublicImagesPathRoute = ApiPublicImagesPathRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/campus': typeof CampusRoute
+  '/creative': typeof CreativeRoute
   '/events': typeof EventsRoute
   '/interactive': typeof InteractiveRoute
   '/publish': typeof PublishRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/campus': typeof CampusRoute
+  '/creative': typeof CreativeRoute
   '/events': typeof EventsRoute
   '/interactive': typeof InteractiveRoute
   '/publish': typeof PublishRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/campus': typeof CampusRoute
+  '/creative': typeof CreativeRoute
   '/events': typeof EventsRoute
   '/interactive': typeof InteractiveRoute
   '/publish': typeof PublishRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/campus'
+    | '/creative'
     | '/events'
     | '/interactive'
     | '/publish'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/campus'
+    | '/creative'
     | '/events'
     | '/interactive'
     | '/publish'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/campus'
+    | '/creative'
     | '/events'
     | '/interactive'
     | '/publish'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CampusRoute: typeof CampusRoute
+  CreativeRoute: typeof CreativeRoute
   EventsRoute: typeof EventsRoute
   InteractiveRoute: typeof InteractiveRoute
   PublishRoute: typeof PublishRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/campus'
       fullPath: '/campus'
       preLoaderRoute: typeof CampusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creative': {
+      id: '/creative'
+      path: '/creative'
+      fullPath: '/creative'
+      preLoaderRoute: typeof CreativeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/events': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CampusRoute: CampusRoute,
+  CreativeRoute: CreativeRoute,
   EventsRoute: EventsRoute,
   InteractiveRoute: InteractiveRoute,
   PublishRoute: PublishRoute,
