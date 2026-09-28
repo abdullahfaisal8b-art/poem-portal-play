@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, CalendarDays, Newspaper, Sparkles } from "lucide-react";
-import { CLUB_NAME, CLUB_TAGLINE, eventsQuery, newsQuery, spotlightsQuery } from "@/lib/queries";
+import { CLUB_NAME, CLUB_TAGLINE, cornerQuery, eventsQuery, newsQuery, spotlightsQuery } from "@/lib/queries";
 import { formatDate } from "@/components/site/PageHeader";
 
 export const Route = createFileRoute("/")({
@@ -96,9 +96,9 @@ function Index() {
         />
         <Column
           icon={<Newspaper className="size-4" />}
-          title="Daily News"
-          to="/news"
-          empty="No news posted yet."
+          title="Campus"
+          to="/campus"
+          empty="No campus notes posted yet."
           items={latestNews.map((n) => ({
             id: n.id,
             title: n.title,
@@ -130,7 +130,7 @@ function Column({
 }: {
   icon: React.ReactNode;
   title: string;
-  to: "/spotlight" | "/news" | "/events";
+  to: "/spotlight" | "/campus" | "/events";
   items: { id: string; title: string; meta: string }[];
   empty: string;
 }) {
