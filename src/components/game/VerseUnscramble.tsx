@@ -10,7 +10,7 @@ export function VerseUnscramble() {
   const [solved, setSolved] = useState(false);
   const [score, setScore] = useState(0);
 
-  const verse = VERSES[index];
+  const verse = VERSES[index]!;
   const tiles = useMemo(() => shuffle(verse.words.map((word, i) => ({ word, i }))), [index]);
 
   const answer = picked.map((i) => verse.words[i]).join(" ");
