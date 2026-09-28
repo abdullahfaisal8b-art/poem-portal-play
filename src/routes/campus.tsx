@@ -6,28 +6,28 @@ import { EmptyState, PageHeader, formatDate } from "@/components/site/PageHeader
 export const Route = createFileRoute("/campus")({
   head: () => ({
     meta: [
-      { title: `Daily News — ${CLUB_NAME}` },
+      { title: `Campus — ${CLUB_NAME}` },
       {
         name: "description",
-        content: "Daily notes and announcements from the college poetry club.",
+        content: "Daily notes and announcements from The Literary Society around campus.",
       },
-      { property: "og:title", content: `Daily News — ${CLUB_NAME}` },
+      { property: "og:title", content: `Campus — ${CLUB_NAME}` },
       { property: "og:description", content: "Daily notes and announcements from the club." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: NewsPage,
+  component: CampusPage,
 });
 
-function NewsPage() {
+function CampusPage() {
   const { data, isLoading } = useQuery(newsQuery);
 
   return (
     <>
       <PageHeader
-        eyebrow="Daily News"
-        title="Notes from the club"
+        eyebrow="Campus"
+        title="Notes from around college"
         intro="Announcements, prompts, small victories and everything happening between readings."
       />
       <div className="mx-auto max-w-3xl px-5">
@@ -49,12 +49,11 @@ function NewsPage() {
                 <img
                   src={imageUrl(n.image_path)}
                   alt={n.title}
-                  loading="lazy"
                   className="mt-6 w-full border border-border object-cover"
                 />
               )}
               {n.body && (
-                <div className="mt-6 whitespace-pre-line leading-relaxed">{n.body}</div>
+                <p className="mt-5 whitespace-pre-line leading-relaxed">{n.body}</p>
               )}
             </article>
           ))}
